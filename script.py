@@ -1,64 +1,27 @@
-from bio.seq import seq
-from bio.seqFeature import seqFeature, FeatureLocation
-from Bio import seqRecord
-def summarize_contens(filename):
-    record = seqIO.read(filename, "getbank")
-    print(record)
- summarize_contents(filename)
-
-                                      
-    def summarize_contents(filename):
-       avance = SeqIO.read(filename, "genbank")
-        print("Name: ", avance.name)
-        import os
-        print ("Path: ", os.path.dirname(filename))
-       avances = list(SeqIO.parse(filename, "genbank"))
-        print("num_avances = %i avances" % len(avance))
-
-        for seq_record in SeqIO.parse(filename,"genbank"):
-                print("ID:",avance.id)
-                
-summarize_contents(filename)
-
-from Bio.Seq import Seq
-from Bio.SeqFeature import SeqFeature, FeatureLocation
-from Bio import SeqIO
-from Bio.SeqRecord import SeqRecord
-import os
 def summarize_contents(filename):
-	all_records = []
-	record = list(SeqIO.parse(filename,"genbank"))
-	print("Path: ",os.path.dirname(filename))
-	print("Num_record = %i records" %len(record))
-	print("\n")
-	for seq_r in SeqIO.parse(filename,"genbank"):
-		all_records.append(seq_r.name)
-		print("Name: ",seq_r.name)
-		print("ID :",seq_r.id)
-		print("Location:")
-		for seq_features in seq_r.features :
-			print('Star: %d, Stop: %d' %(int(seq_feature.location.start),int(seq_feature.location.end)))
-		
-	
-sunnarize_contents(filename)
-
-from Bio.Seq import Seq
-from Bio.SeqFeature import SeqFeature, FeatureLocation
-from Bio import SeqIO
-from Bio.SeqRecord import SeqRecord
-import os
-filename = ("nombre del archivo genbank")
-def summarize_contents(filename):
-	all_records = []
-	record = list(SeqIO.parse(filename,"genbank"))
-	print("Path: ",os.path.dirname(filename))
-	print("Num_record = %i records" %len(record))
-	print("\n")
-	for seq_r in SeqIO.parse(filename,"genbank"):
-		all_records.append(seq_r.name)
-		print("Name: ",seq_r.name)
-		print("ID :",seq_r.id)
-		print ("Description: " , seq_record.description, "\n")
-		
-	
-summarize_contents(filename)
+	listaOs = os.path.split(filename)
+	listaExt = os.path.splitext(filename)
+	if (listaExt[1] == ".gbk"):
+		type_file= "genbank"
+	else: 
+		type_file= "fasta"
+	record = list(SeqIO.parse(filename, type_file))
+	#Creacion de diccionario
+	d = {}
+	d['File:'] = listaOs[1]
+	d['Path:'] = listaOs[0]
+	d['Num_records:'] = len(record)
+	#Diccionario con listas
+	d['Names:'] = []
+	d['IDs:'] = []
+	d['Descriptions'] = []
+	#Registro de records
+	for seq_rcd in SeqIO.parse(filename,type_file):
+		d['Names:'].append(seq_rcd.name)
+		d['IDs:'].append(seq_rcd.id)
+		d['Descriptions'].append(seq_rcd.description)
+	return d
+#Imprimir la funcion
+if _name_ == "_main_":
+	resultados = summarize_contents(filename)
+	print(resultados)
