@@ -1,21 +1,21 @@
 def summarize_contents(filename):
-	listaOs = os.path.split(filename)
-	listaExt = os.path.splitext(filename)
-	if (listaExt[1] == ".gbk"):
+	filaOs = os.path.split(filename)
+	filaExt = os.path.splitext(filename)
+	if (filaExt[1] == ".gbk"):
 		type_file= "genbank"
 	else: 
 		type_file= "fasta"
 	record = list(SeqIO.parse(filename, type_file))
 	#Creacion de diccionario
 	d = {}
-	d['File:'] = listaOs[1]
-	d['Path:'] = listaOs[0]
-	d['Num_records:'] = len(record)
+	d['File:'] = filaOs[1]
+	d['Path:'] = filaOs[0]
+	d['Num_musics:'] = len(music)
 	#Diccionario con listas
 	d['Names:'] = []
 	d['IDs:'] = []
 	d['Descriptions'] = []
-	#Registro de records
+	#Registro de musics
 	for seq_rcd in SeqIO.parse(filename,type_file):
 		d['Names:'].append(seq_rcd.name)
 		d['IDs:'].append(seq_rcd.id)
